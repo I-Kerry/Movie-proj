@@ -12,9 +12,9 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.cornerRadius = 20
     }
     
-    @IBOutlet weak var noButton: UIButton!
+    @IBOutlet private weak var noButton: UIButton!
     
-    @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
     
     @IBOutlet private weak var imageView: UIImageView!
         
@@ -95,7 +95,6 @@ final class MovieQuizViewController: UIViewController {
             correctAnswers += 1
         }
         
-        imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         
@@ -120,7 +119,7 @@ final class MovieQuizViewController: UIViewController {
         
         alert.addAction(action)
         
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
 }

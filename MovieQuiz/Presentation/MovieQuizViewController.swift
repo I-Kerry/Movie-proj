@@ -53,7 +53,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private var currentQuestion: QuizQuestion?
     
-    private var alertPresenter = AlertPresenter()
+//    private var alertPresenter = AlertPresenter()
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         guard let currentQuestion = currentQuestion else { return }
@@ -87,13 +87,19 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private func show(quiz result: QuizResultViewModel) {
         
-        let model = AlertModel(title: result.title, message: "Ваш результат: \(result.text)\nКоличество сыгранных квизов: \(statisticService.gamesCount)\nРекорд: \(statisticService.bestGame.correct)/10 (\(statisticService.bestGame.date.dateTimeString))\nСредняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%", buttonText: result.buttonText) { [weak self] in guard let self = self else { return }
+        let model = AlertModel(title: result.title, message: """
+Ваш результат: \(result.text)
+Количество сыгранных квизов: \(statisticService.gamesCount)
+Рекорд: \(statisticService.bestGame.correct)/10 (\(statisticService.bestGame.date.dateTimeString))
+Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%
+""",
+        buttonText: result.buttonText) { [weak self] in guard let self = self else { return }
             self.correctAnswers = 0
             self.currentQuestionIndex = 0
             self.questionFactory?.requestNextQuestion()
             
         }
-        alertPresenter.show(model: model, vc: self)
+        AlertPresenter.show(model: model, vc: self)
     }
     
     private func showNextQuestionOrResults () {
